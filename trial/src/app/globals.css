@@ -1,0 +1,71 @@
+@import "tailwindcss";
+
+@theme {
+  /* Colors - Holographic Terminal Palette (Cyan/Teal focused) */
+  --color-primary: oklch(0.75 0.18 190);
+  /* Vivid Cyan */
+  --color-primary-dim: oklch(0.4 0.1 190);
+  --color-accent: oklch(0.8 0.25 150);
+  /* Neon Green */
+  --color-surface: oklch(0.12 0.02 200);
+  /* Deep Midnight */
+  --color-surface-brighter: oklch(0.18 0.03 200);
+
+  /* Typography */
+  --font-sans: 'Geist', sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+
+  /* Spacing Scale */
+  --spacing-terminal-px: 1px;
+}
+
+:root {
+  --background: oklch(0.1 0.02 200);
+  --foreground: oklch(0.9 0.05 190);
+  --terminal-glow: 0 0 10px oklch(0.75 0.18 190 / 0.5);
+}
+
+@layer base {
+  body {
+    background: var(--background);
+    color: var(--foreground);
+    font-family: var(--font-mono);
+    overflow-x: hidden;
+  }
+
+  /* CRT Scanline Effect Overlay */
+  body::before {
+    content: " ";
+    display: block;
+    position: fixed;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+    background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), linear-gradient(90deg, rgba(255, 0, 0, 0.06), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.06));
+    z-index: 100;
+    background-size: 100% 2px, 3px 100%;
+    pointer-events: none;
+    opacity: 0.15;
+  }
+
+  /* Holographic Glow for Containers */
+  .holographic-card {
+    background: oklch(0.15 0.03 200 / 0.4);
+    backdrop-filter: blur(12px);
+    border: 1px solid oklch(0.75 0.18 190 / 0.2);
+    box-shadow: var(--terminal-glow);
+    transition: all 0.3s ease;
+  }
+
+  .holographic-card:hover {
+    border-color: oklch(0.75 0.18 190 / 0.6);
+    box-shadow: 0 0 20px oklch(0.75 0.18 190 / 0.3);
+  }
+}
+
+@layer utilities {
+  .text-glow {
+    text-shadow: 0 0 8px oklch(0.75 0.18 190 / 0.8);
+  }
+}
